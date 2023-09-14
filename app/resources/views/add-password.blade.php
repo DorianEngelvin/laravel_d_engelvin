@@ -12,12 +12,12 @@
             @csrf
             <input name="url" id="url" placeholder="url" type="text">
             <input name="email" id="email"  placeholder="email" type="text">
-            <input name="password" id="password"  placeholder="password" type="text">
+            <input name="password" id="password"  placeholder="password" type="password">
             <input type="submit" value="send">
         </form>
 
-        @if(!empty($url))
-            <p>URL précédemment envoyée : {{ $url }}</p>
+        @if(!empty($response))
+            <p>{{ $response }}</p>
         @endif
     </body>
 </html>

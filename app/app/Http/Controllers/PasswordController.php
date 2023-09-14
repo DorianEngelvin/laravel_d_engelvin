@@ -12,10 +12,14 @@ class PasswordController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
+        $urlVerif = explode('www.', $url)[1] ?? null;
+
         $emailVerif = explode('@', $email)[1] ?? null;
 
-        if ($emailVerif) {
-            return view('/add-password', ['url' => $url]); // Afficher une vue de confirmation
+        if ($emailVerif && $urlVerif) {
+            return view('/add-password', ['response' => 'OK']); // Afficher une vue de confirmation
+        } else {
+            return view('/add-password', ['response' => 'KO']); // Afficher une vue de confirmation
         }
     }
 }
