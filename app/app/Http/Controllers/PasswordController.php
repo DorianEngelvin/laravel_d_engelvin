@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PasswordController extends Controller
 {
@@ -17,7 +18,19 @@ class PasswordController extends Controller
         $emailVerif = explode('@', $email)[1] ?? null;
 
         if ($emailVerif && $urlVerif) {
-            return view('/add-password', ['response' => 'OK']); // Afficher une vue de confirmation
+            $data = [
+                "url" => $url,
+                "email" => $email,
+                "password" => $password
+            ];
+
+            $files = Storage::disk('local_json')->files();
+            $date = now()->format('YmdHis');
+
+            $filename = "password_$date.json";
+
+            Storage::disk('local_json')->put($filename, json_encode($data));
+            return view('/add-password', ['response' => 'OK']);
         } else {
             return view('/add-password', ['response' => 'KO']); // Afficher une vue de confirmation
         }
