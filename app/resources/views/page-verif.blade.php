@@ -8,12 +8,10 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     </head>
     <body>
-        <form method="GET" action="{{ route('route.form') }}">
-            @csrf
-            <input name="url" id="url" placeholder="url" type="text">
-            <input name="email" id="email"  placeholder="email" type="text">
-            <input name="password" id="password"  placeholder="password" type="password">
-            <input type="submit" value="send">
-        </form>
+        @foreach (Session::get('jsonData') as $data)
+            <p>{{ $data["url"] }}</p>
+            <p>{{ $data["email"] }}</p>
+            <p>{{ $data["password"] }}</p>
+        @endforeach
     </body>
 </html>

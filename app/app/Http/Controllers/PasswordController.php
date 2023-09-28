@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class PasswordController extends Controller
 {
@@ -30,9 +31,18 @@ class PasswordController extends Controller
             $filename = "password_$date.json";
 
             Storage::disk('local_json')->put($filename, json_encode($data));
-            return view('/add-password', ['response' => 'OK']);
-        } else {
-            return view('/add-password', ['response' => 'KO']); // Afficher une vue de confirmation
+
+            $jsonData = [];
+
+            // Parcourir chaque fichier JSON et le décoder
+            foreach ($files as $file) {
+                $contents = Storage::disk('local_json')->get($file);
+                $jsonData[] = json_decode($contents, true);
+            }
+
+            Session::put('jsonData', $jsonData);
+            return redirect('/page-verif');
         }
     }
+
 }

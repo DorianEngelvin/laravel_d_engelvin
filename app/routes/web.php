@@ -25,6 +25,10 @@ Route::get('/add-password', function () {
 
 Route::get('/get', [PasswordController::class, 'GetPassword'])->name('route.form');
 
+Route::get('/page-verif', function () {
+    return view('page-verif');
+})->name("page-verif");   
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
