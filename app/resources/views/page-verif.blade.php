@@ -8,10 +8,6 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     </head>
     <body>
-        @foreach (Session::get('jsonData') as $data)
-            <p>{{ $data["url"] }}</p>
-            <p>{{ $data["email"] }}</p>
-            <p>{{ $data["password"] }}</p>
-        @endforeach
+
     </body>
 </html>

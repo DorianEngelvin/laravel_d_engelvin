@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('password', function (Blueprint $table) {
+        Schema::create('passwords', function (Blueprint $table) {
             $table->id();
+            $table->string('site', 255);
+            $table->string('login', 255);
+            $table->longText('password');
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
         });
     }

@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,23 +17,20 @@ use App\Http\Controllers\PasswordController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/add-password', function () {
-    return view('add-password');
-})->name("add-password");   
+Route::get('/add-team', [TeamController::class, 'addteam'])->name("add-team"); 
+
+Route::match(array('GET','POST'), 'add-password', [PasswordController::class, 'addPassword'])->name('add-password'); 
+
+Route::get('/passwords', [PasswordController::class, 'index'])->name('passwords.index');
 
 Route::get('/get', [PasswordController::class, 'GetPassword'])->name('route.form');
 
-Route::get('/page-verif', function () {
-    return view('page-verif');
-})->name("page-verif");   
+Route::get('/get', [TeamController::class, 'store'])->name('teams.store');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [MainController::class, 'welcome'])->name("welcome");
+
+Route::get('/dashboard', [MainController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,12 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/registration', function () {
-    return view('registration');
-})->name('registration');
-
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::controller(ProfileController::class)->group(function () {
+    Route::get('/registration', 'registration')->name('registration');
+    Route::get('/login', 'login')->name('login');
+});
 
 require __DIR__.'/auth.php';

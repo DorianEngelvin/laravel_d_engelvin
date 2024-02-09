@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class ProfileController extends Controller
+class ProfileController extends MainController
 {
     /**
      * Display the user's profile form.
@@ -56,5 +56,13 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+    public function registration()
+    {
+        return view('registration');
+    }
+    public function login()
+    {
+        return view('dashboard');
     }
 }
