@@ -46,7 +46,7 @@
                                         <td class="py-2 px-4 border-b">{{ $password->login }}</td>
                                         <td class="py-2 px-4 border-b">{{ $password->password }}</td>
                                         <td class="py-2 px-4 border-b">
-                                            <a href="{{ $password->site }}" target="_blank">Visiter le site</a>
+                                            <!-- <a href="../{{ $password->site }}" target="_blank">Visiter le site</a> -->
                                         </td>
                                     </tr>
                                 @endif
